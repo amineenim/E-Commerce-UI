@@ -1,37 +1,26 @@
 import { useState } from 'react'
+import { useDispatch,useSelector } from 'react-redux'
 
 
-function ProductItemInCart({product}){
+function ProductItemInCart({product,quantity}){
 
-
-	const [numberOfItems,setNumberOfItems] = useState(1)
-
-	function handleItemAdded() {
-
-		setNumberOfItems(numberOfItems+1)
-	}
-
-	function handleItemRemoved(){
-		setNumberOfItems(numberOfItems-1)
-	}
-
+	const dispatch = useDispatch()
 
 	return (
-		numberOfItems > 0 ? (
-		   <div className="product-row-in-cart">
-		   <p> {product.title} </p>
-		   <span>Unit Price : {product.price}€</span>
-		   <div className="product-counter">
-		   <button onClick={() => handleItemAdded()}
-		   >+</button>
-		   <span>{numberOfItems}</span>
-		   <button onClick={() => handleItemRemoved()}
-		   >-</button>
-		   <span className="product-total-price">{numberOfItems* product.price}</span>
-		   </div>
-	    </div>) : ''
-		
+		<div className="product-in-cart">
+		<h4 className="product-title"> {product.title} </h4>
+		<div className="product-data">
+		<span className="product-price">Unit Price : {product.price}</span>
+		<span className="items-count">number of items : {quantity}</span>
+		</div>
+		<span className="items-amount">Total for product: {product.price*quantity}€</span>
+		<button 
+		className="btn btn-danger remove-product-button"
+		onClick={() => dispatch({type : 'cart/productRemoved',payload:product.id})}
+		>Remove Product</button>
+		</div>
 		)
+
 	
 }
 

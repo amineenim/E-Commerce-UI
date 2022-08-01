@@ -9,16 +9,17 @@ function ProductItem ({id}){
 	const [product,setProduct] = useState({})
 	const url = 'https://fakestoreapi.com/products/'+Number(id)
 	
+
+	
 	
 	useEffect (() => {
 		Axios.get(url).then(response => {
-		console.log(response.data)
 		setProduct(response.data)
 	})
 	},[url])
 
 	return (
-	<div className="card container">
+	<div className="card container" key={product.id}>
 	   <img src={product.image} className="card-img-top" alt="product photo" width="50px"/>
 	   <div className="card-body">
 	      <h5 className="card-title">{product.title}</h5>

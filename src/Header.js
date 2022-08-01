@@ -1,5 +1,7 @@
+import { useSelector } from 'react-redux'
 
 function Header(){
+  const numberOfItemsInCart = useSelector((state) => state.cart.cartItemsCount)
 	return(
 <nav className="navbar navbar-expand-lg bg-light">
   <div className="container-fluid">
@@ -22,10 +24,10 @@ function Header(){
           <a className="nav-link">Contact</a>
         </li>
       </ul>
-      <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search for a product " aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div className="count">
+      <span className="material-icons-two-tone">shopping_cart</span>
+      <div className="items-count-In-Cart">{numberOfItemsInCart}</div>
+      </div>
     </div>
   </div>
 </nav>

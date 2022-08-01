@@ -9,7 +9,6 @@ function ProductsList(){
 
 	const getProducts = () => {
 		Axios.get('https://fakestoreapi.com/products?limit=10').then((response) => {
-			console.log(response.data)
 			setProductsList(response.data)
 		})
 	}
@@ -26,7 +25,7 @@ function ProductsList(){
 		{
 			productsList.map((product) => (
 
-			<ProductItem id = {product.id}/>
+			<ProductItem id = {product.id} key={product.id}/>
 
 			))
 		}
