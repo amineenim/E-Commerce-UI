@@ -12,7 +12,9 @@
 .main-content {
 	display: flex ;
 	flex-direction: row;
-	padding: 30px;
+	padding: 20px;
+	width: 80%;
+
 	
 	
 }
@@ -21,6 +23,7 @@
 	width: 50%;
 	height: 400px;
 	align-items: center;
+	overflow: auto;
 }
 .card-img-top{
 	height: 200px;
@@ -32,7 +35,7 @@
 }
 
 .cart-container{
-	position: fixed;
+	
 	margin-top: 100px;
 	border : solid 1px black;
 	padding: 5px 8px;
@@ -40,6 +43,7 @@
 	flex-direction: column;
 	background-color: rgb(200,200,200);
 	width:340px;
+	overflow: scroll;
 }
 .product-row-in-cart p {
 	width: 200px;
@@ -68,4 +72,19 @@
 }
 .remove-product-button{
 	margin-left: 25px;
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+.products-list{
+	display: flex;
+	flex-direction: column;
+}
+.products-list h1 {
+	padding-top: 20px;
+
 }

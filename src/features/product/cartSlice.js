@@ -19,6 +19,9 @@ export const cartSlice = createSlice(
 			state.cartItemsCount +=1 ;
 			//retreive the product comming in payload of the action
 			const addedProduct = action.payload
+			//retreive the price for the added product 
+			//update the total price
+			state.totalPrice += addedProduct.price 
 			//verify if the product already exists in cartItems
 			const existingProduct = state.cartItems.find(
 				(item) => item.id === addedProduct.id
@@ -42,15 +45,20 @@ export const cartSlice = createSlice(
 		{
 			//retreive the id of the item to delete
 			const productId = action.payload 
+			//retreive the unit price of the product
+			const productPrice = state.cartItems.filter((elt) => elt.id === productId)[0].price
 			//filter the cartItems array
 			state.cartItems = state.cartItems.filter((elt) => elt.id !== productId)
 			//map the cartItemsWithCount and return the numberOfItems for the product to delete
 			const productNumberOfItems = state.cartItemsWithCount.filter(
 				(elt) => elt.id === productId )
+			//decrement the totalprice by productPrice*quantity
+			state.totalPrice -= productPrice*productNumberOfItems[0].quantity
 			//filter the cartItemsWithCount array to delete the element with id eqauls to productId
 			state.cartItemsWithCount = state.cartItemsWithCount.filter((elt) => elt.id !== productId)
 			//decrement the cartItemsCount by number of items of deleted product
 			state.cartItemsCount -=productNumberOfItems[0].quantity
+	
 		},
 
 		cartReset : (state) => 
@@ -58,6 +66,8 @@ export const cartSlice = createSlice(
 			state.cartItemsCount = 0 
 			state.cartItems = []
 			state.cartItemsWithCount = []
+			state.totalPrice = 0
+
 		}
 	}
 

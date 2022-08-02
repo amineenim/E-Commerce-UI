@@ -18,12 +18,14 @@ function ProductItem ({id}){
 	})
 	},[url])
 
+	let productDescription = product.description
+
 	return (
 	<div className="card container" key={product.id}>
 	   <img src={product.image} className="card-img-top" alt="product photo" width="50px"/>
 	   <div className="card-body">
 	      <h5 className="card-title">{product.title}</h5>
-	      <p className="card-text">{product.description} </p>
+	      <p className="card-text">{productDescription}</p>
 	      <button className="btn btn-primary"
 	      onClick = {() => dispatch({type : 'cart/productAdded',payload : product})}
 	      >Add to Cart</button>

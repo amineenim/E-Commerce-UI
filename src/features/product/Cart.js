@@ -8,6 +8,7 @@ function Cart(){
 	const productsInCart = useSelector ((state) => state.cart.cartItems)
 	const productsWithCount = useSelector((state) => state.cart.cartItemsWithCount)
 	const productsCountInCart = useSelector((state) => state.cart.cartItemsCount)
+	const totalPrice = useSelector((state) => state.cart.totalPrice)
 
 	function returnItemCount(product){
 		let numberofItems = 0
@@ -22,6 +23,7 @@ function Cart(){
 	return (
 		<div className="cart-container">
 		<h4>My Cart</h4>
+		<p className="total">Total Price : {totalPrice} € </p>
 		<ul className="products-in-cart">
 		{
 			productsInCart.map (

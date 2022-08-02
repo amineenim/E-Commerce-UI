@@ -19,13 +19,13 @@ function ProductsList(){
 	},[])
 
 	return (
-		<div className="products-list">
+		<div className="products-list container">
 		<h1 className="products-list-title">All Products</h1>
-		<section className="products-list-body">
+		<section className="products-list-body row">
 		{
 			productsList.map((product) => (
 
-			<ProductItem id = {product.id} key={product.id}/>
+			<ProductItem id = {product.id} key={product.id} className="col"/>
 
 			))
 		}

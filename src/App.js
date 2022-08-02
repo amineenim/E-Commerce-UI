@@ -13,10 +13,12 @@ function App() {
   return (
     <div className="container-fluid">
       <Header/>
-      <main className="main-content container-fluid">
+      <div className="container">
       <Cart />
+      <main className="main-content container-fluid">
       <ProductsList />
       </main>
+      </div>
       <Footer/>
     </div>
   );
