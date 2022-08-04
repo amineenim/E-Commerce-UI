@@ -26,7 +26,7 @@ function ProductItem ({id}){
 	   <div className="card-body">
 	      <h5 className="card-title">{product.title}</h5>
 	      <p className="card-text">{productDescription}</p>
-	      <button className="btn btn-primary"
+	      <button className="btn btn-outline-success add-to-cart-button"
 	      onClick = {() => dispatch({type : 'cart/productAdded',payload : product})}
 	      >Add to Cart</button>
 	   </div>
