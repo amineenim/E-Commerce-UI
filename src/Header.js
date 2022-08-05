@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
+
+
 function Header(){
   const numberOfItemsInCart = useSelector((state) => state.cart.cartItemsCount)
 	return(
@@ -15,13 +17,10 @@ function Header(){
           <Link className="nav-link active" aria-current="page" to="/">Home</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/products">Products</Link>
+          <Link className="nav-link" to="products">Products</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">About</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link">Contact</a>
+          <Link className="nav-link" to="/cart">Cart</Link>
         </li>
       </ul>
       <div className="count">

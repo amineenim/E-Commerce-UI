@@ -1,62 +1,66 @@
 import { useState,useEffect } from 'react'
 import Axios from 'axios'
 import ProductItem from '../features/product/ProductItem.js'
-const api = 'https://fakestoreapi.com/products/category/'
+import { useSelector } from 'react-redux'
 
 function CartPage(){
-
-	const [items,setItems] = useState([])
-	const [categories,setCategories]=useState([])
-	const [selectedCategory,setSelectedCategory] = useState("")
-
-	const getItems= (selectedCategory) => {
-		if(selectedCategory !==""){
-        const apiWithCategory = api+selectedCategory
-		Axios.get(apiWithCategory).then(
-			(response) => {setItems(response.data)})
-		
-		}else{
-			const apiWithCategory='https://fakestoreapi.com/products/'
-			Axios.get(apiWithCategory).then(
-				(response) => {setItems(response.data)})
-		}
-		
+	//import info from state to display it
+	const productsInCart = useSelector((state) => state.cart.cartItems)
+	const productsInCartWithCount = useSelector((state) => state.cart.cartItemsWithCount)
+	const TotalPrice = useSelector((state) => state.cart.totalPrice)
+	// function that returns the number of items for a product 
+	const getCount = (id) => {
+		const myProduct = productsInCartWithCount.filter(
+			(item) => item.id === id)
+		return myProduct[0].quantity
 	}
 
-	useEffect(() => {
-		getCategories()
-	},[])
+	return (
+		productsInCart.length > 0 ?
+		(   
+			<div className="cart-table">
+			<div className="cart-intro">
+			   <h4>My Cart</h4>
+			   <span className="material-icons-two-tone">shopping_cart</span>
+			</div>
+		 	<table className="table">
+		 	 <thead>
+		 	   <tr>
+		 	      <th scope="col">Product number</th>
+		 	      <th scope="col">Product Name</th>
+		 	      <th scope="col">Product Description</th>
+		 	      <th scope="col">Product Quantity</th>
+		 	      <th scope="col">Product Unit Price</th>
+		 	      <th scope="col">Total for product Items</th>
+		 	   </tr>
+		 	 </thead>
+		 	 <tbody>
+		 	   {
+		 	   	productsInCart.map(
+		 	   	(item) => (
+		 	   		    <tr key={item.id}>
+		 	   		        <th scope="row">{item.id}</th>
+		 	   	            <td>{item.title}</td>
+		 	   	            <td>{item.description}</td>
+		 	   	            <td>
+		 	   	            <div className="quantity-update">
+		 	   	            <button className="btn btn-danger">-</button>
+		 	   	            <span className="items-quantity">{getCount(item.id)}</span>
+		 	   	            <button className="btn btn-success">+</button>
+		 	   	            </div>
+		 	   	            </td>
+		 	   	            <td>{item.price}</td>
+		 	   	            <td>{item.price*getCount(item.id)}</td>
+		 	   	        </tr>)
 
-	useEffect(() => {
-		getItems(selectedCategory)
-	},[selectedCategory])
-
-	const getCategories = () => {
-		Axios.get('https://fakestoreapi.com/products/categories').then(
-			(response) => {setCategories(response.data)})
-	}
-	
-
-	return(
-		<div className="products-page container">
-		<div className="select-products row">
-		   <label htmlFor="category-select"><strong>Select your desired Category of products Here :</strong></label>
-		   <select name="products-category" 
-		   id="category-select"
-		   onChange={(e) => setSelectedCategory(e.target.value)}
-		   > 
-		      <option value="" selected>All Categories</option>
-		      {
-		      	categories.map((category) => 
-		      	(<option value={category}>{category}</option>))
-		      }
-		   </select>
-
-		</div>
-		<section className="products row">
-		{items.map((item) => (<ProductItem id = {item.id} key={item.id} className="col" />))}
-		</section>
-		</div>
+		 	   	)
+		 	   }
+		 	 </tbody>
+		 	</table>
+		 	<p className="total-cart">Total for the Cart : {TotalPrice}</p>
+		 	</div>
+		) 
+		 	: (<p className="empty-cart-text">Your Cart is empty ,Go shopping !</p>)
 		)
 }
 export default CartPage
