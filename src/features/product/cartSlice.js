@@ -68,6 +68,36 @@ export const cartSlice = createSlice(
 			state.cartItemsWithCount = []
 			state.totalPrice = 0
 
+		},
+
+		productIncrement : (state,action) => 
+		{
+			state.cartItemsCount +=1 
+			const incrementedProduct = state.cartItemsWithCount.filter((item) => item.id ===action.payload.id)
+			incrementedProduct[0].quantity +=1
+			state.totalPrice+= action.payload.price
+		},
+
+		productDecrement : (state,action) => 
+		{
+			state.cartItemsCount -=1
+
+			const decrementedProduct = state.cartItemsWithCount.filter((item) => item.id === action.payload.id)
+			if(decrementedProduct[0].quantity === 1)
+			{
+				state.cartItemsWithCount = state.cartItemsWithCount.filter((item) => item.id !== action.payload.id)
+				state.cartItems = state.cartItems.filter((item) => item.id !== action.payload.id)
+				state.totalPrice -= action.payload.price
+			}
+			else
+			{
+				decrementedProduct[0].quantity -=1
+				state.totalPrice -= action.payload.price
+				
+			}
+
+			
+
 		}
 	}
 

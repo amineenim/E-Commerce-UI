@@ -1,9 +1,12 @@
 import { useState,useEffect } from 'react'
 import Axios from 'axios'
 import ProductItem from '../features/product/ProductItem.js'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
+
 
 function CartPage(){
+
+	const dispatch = useDispatch()
 	//import info from state to display it
 	const productsInCart = useSelector((state) => state.cart.cartItems)
 	const productsInCartWithCount = useSelector((state) => state.cart.cartItemsWithCount)
@@ -44,9 +47,15 @@ function CartPage(){
 		 	   	            <td>{item.description}</td>
 		 	   	            <td>
 		 	   	            <div className="quantity-update">
-		 	   	            <button className="btn btn-danger">-</button>
+		 	   	            <button
+		 	   	            className="btn btn-danger"
+		 	   	            onClick={() => dispatch({type : 'cart/productDecrement',payload : {id : item.id,price :item.price} })}
+		 	   	            >-</button>
 		 	   	            <span className="items-quantity">{getCount(item.id)}</span>
-		 	   	            <button className="btn btn-success">+</button>
+		 	   	            <button 
+		 	   	            className="btn btn-success"
+		 	   	            onClick={() => dispatch({type : 'cart/productIncrement',payload :{id : item.id,price :item.price} })}
+		 	   	            >+</button>
 		 	   	            </div>
 		 	   	            </td>
 		 	   	            <td>{item.price}</td>

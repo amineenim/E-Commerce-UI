@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react'
 import Axios from 'axios'
 import ProductItem from '../features/product/ProductItem.js'
+import { Outlet } from 'react-router-dom'
 const api = 'https://fakestoreapi.com/products/category/'
 
 function ProductsPage(){
@@ -56,6 +57,7 @@ function ProductsPage(){
 		<section className="products row">
 		{items.map((item) => (<ProductItem id = {item.id} key={item.id} className="col" />))}
 		</section>
+		<Outlet/>
 		</div>
 		)
 }
