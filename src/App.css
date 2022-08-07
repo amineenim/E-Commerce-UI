@@ -183,3 +183,30 @@ td {
 	text-align: center;
 	color: white;
 }
+
+.single-product-page {
+
+	width:80%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding-left: 30px;
+	padding-top: 30px;
+	margin-top: 20px;
+}
+
+.card-top-image {
+	width: 250px;
+	height: 300px;
+	margin-right: 20px;
+}
+
+.card-central-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.product-price {
+	font-weight: bold;
+	margin-bottom: 20px;
+}

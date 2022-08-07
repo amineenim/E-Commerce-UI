@@ -7,6 +7,7 @@ import Home from './pages/Home.js'
 import ProductsPage from './pages/ProductsPage.js'
 import CartPage from './pages/CartPage.js'
 import ErrorPage from './pages/ErrorPage.js'
+import SingleProductPage from './pages/SingleProductPage.js'
 
 import { BrowserRouter as Router,Routes,Route,Link } from 'react-router-dom'
 
@@ -20,10 +21,10 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="products">
              <Route index element={<ProductsPage/>}/>
-             <Route path=":id" element={<p>i m a single element</p>}/>
+             <Route path=":id" element={<SingleProductPage/>}/>
           </Route>
           <Route path="cart" element={<CartPage/>}/>
-          <Route path='*' element={<ErrorPage/>}/>
+          <Route path="*" element={<ErrorPage/>}/>
        </Routes>
        <Footer/>
     </Router>

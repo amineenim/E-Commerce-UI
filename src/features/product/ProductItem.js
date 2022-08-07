@@ -2,9 +2,11 @@ import Axios from 'axios'
 import  React, {useState,useEffect} from 'react'
 import {useSelector, useDispatch } from 'react-redux'
 import {productAdded} from './cartSlice.js'
+import { useNavigate } from 'react-router-dom'
 
 function ProductItem ({id}){
 
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [product,setProduct] = useState({})
 	const url = 'https://fakestoreapi.com/products/'+Number(id)
@@ -29,6 +31,10 @@ function ProductItem ({id}){
 	      <button className="btn btn-outline-success add-to-cart-button"
 	      onClick = {() => dispatch({type : 'cart/productAdded',payload : product})}
 	      >Add to Cart</button>
+	      <button
+	      className="btn btn-outline-primary"
+	      onClick = {() => navigate(`/products/${product.id}`)}
+	      >Show Product</button>
 	   </div>
 	</div>
 

@@ -95,10 +95,8 @@ export const cartSlice = createSlice(
 				state.totalPrice -= action.payload.price
 				
 			}
-
-			
-
-		}
+		},
+		
 	}
 
 
