@@ -66,7 +66,7 @@ function CartPage(){
 		 	   }
 		 	 </tbody>
 		 	</table>
-		 	<p className="total-cart">Total for the Cart : {TotalPrice}</p>
+		 	<p className="total-cart">Total for the Cart : {TotalPrice} $</p>
 		 	</div>
 		) 
 		 	: (<p className="empty-cart-text">Your Cart is empty ,Go shopping !</p>)

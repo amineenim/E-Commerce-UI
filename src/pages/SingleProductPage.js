@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate } from 'react-router-dom'
 import React,{ useState,useEffect } from 'react'
 import Axios from 'axios'
 import { useSelector,useDispatch } from 'react-redux'
@@ -17,9 +17,10 @@ function SingleProductPage(){
 	//a local state which takes the product to display in page
 	const [productToDisplay,setProductToDisplay] = useState({})
 	
-    //return the productId passed in the URL 
+    //return the productId passed in the URL as a parameter
 	const params = useParams()
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
 	
 	//function that fetches for the product based on it's Id and then sets the 
 	//local state productToDisplay to take the response object 
@@ -55,7 +56,7 @@ function SingleProductPage(){
 	return (
 		<div className="card single-product-page">
 		   <img src={productToDisplay.image} alt="card image" className="card-top-image"/>
-		   <div className="card-body">
+		   <div className="card-body card-central-content">
 		      <h5 className="card-title"> {productToDisplay.title} </h5>
 		      <p className="card-text">{productToDisplay.description}</p>
 		      <span className="product-price">Unit Price : {productToDisplay.price}$</span>
@@ -73,14 +74,19 @@ function SingleProductPage(){
 		 	   	            >+</button>
 		 	   	            </div>)
 		      	: (
-		      	<span 
-		      	className="btn btn-primary"
+		      	<button 
+		      	className="btn btn-outline-primary"
 		      	onClick = {() => dispatch({type : 'cart/productAdded',payload : productToDisplay})}
-		      	>Add To Cart</span>
+		      	>Add To Cart</button>
 		      	)
 		      }
 		      </span> 
+		      <button className="redirect-home btn btn-outline-primary" onClick={() => navigate('/')}>
+		      <span className="material-icons-two-tone back-flesh">arrow_back</span>
+		      <p>Back Home</p>
+		      </button>
 		   </div>
+		   
 		</div>
 		)
 	
