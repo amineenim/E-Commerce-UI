@@ -8,6 +8,8 @@ import ProductsPage from './pages/ProductsPage.js'
 import CartPage from './pages/CartPage.js'
 import ErrorPage from './pages/ErrorPage.js'
 import SingleProductPage from './pages/SingleProductPage.js'
+import LoginPage from './pages/LoginPage.js'
+import RegisterPage from './pages/RegisterPage.js'
 
 import { BrowserRouter as Router,Routes,Route,Link } from 'react-router-dom'
 
@@ -24,6 +26,8 @@ function App() {
              <Route path=":id" element={<SingleProductPage/>}/>
           </Route>
           <Route path="cart" element={<CartPage/>}/>
+          <Route path ="login" element ={<LoginPage/>} />
+          <Route path="register" element = { <RegisterPage /> }/>
           <Route path="*" element={<ErrorPage/>}/>
        </Routes>
        <Footer/>
