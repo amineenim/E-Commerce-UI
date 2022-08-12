@@ -24,7 +24,7 @@ function Cart(){
 		<div className="cart-container">
 		<div className="cart-header">
 		<h4>My Cart<i className="material-icons-two-tone">shopping_cart</i></h4>
-		<p className="total">Total Price : {totalPrice} € </p>
+		<p className="total">{totalPrice > 0 ? (<p>Total Price : {totalPrice} €</p>) :(<p className="offscreen"></p>)}</p>
 		</div>
 		<ul className="products-in-cart">
 		{
@@ -40,7 +40,7 @@ function Cart(){
 		{productsInCart.length > 0 ? 
 		(<button className="btn btn-success reset-cart"
 		  onClick={() => dispatch({type : 'cart/cartReset'})}>Reset Cart</button>) 
-		: (<p>your cart is empty </p>)}
+		: (<p className="offscreen">your cart is empty </p>)}
 		</div>
 		)
 }

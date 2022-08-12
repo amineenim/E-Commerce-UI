@@ -65,23 +65,41 @@ function RegisterPage () {
 			setValidPassword(result)
 			const match = password === confirmPassword 
 			setValidMatch(match)
-		},[password])
+		},[password,confirmPassword])
+
+	const handleSubmit =  async(e) => {
+		e.preventDefault()
+		//if button enabled with js hack
+		const v1 = USER_REGEX.test(userName)
+		const v2 = PWD_REGEX.test(password)
+		if(!v1 || !v2)
+		{
+			setErrMsg('invalid entry')
+			return
+		}
+		console.log(userName,password)
+		setSucces(true)
+	}
 
 	return (
+		<>
+		{succes ? (
+			<div>
+			   <h2>Succes!</h2>
+			   <p><Link to="/login">Login</Link></p>
+			</div>
+			) : (
 		<section className="register-form">
 		   <p ref={errRef} className= { errMsg ? "errormessage" : "offscreen"} 
 		   aria-live="assertive"> {errMsg} </p>
 		   <h2>Register</h2>
-		   <form >
+		   <form onSubmit = {handleSubmit} >
               <div className="form-group">
                  <label htmlFor="username">Username : 
-
                  { userName ? ( validUserName ?
                  	          <span className="material-icons">done</span> :
                  	          <span className="material-icons">close</span> ) :(<p className="offscreen"></p>)
                  }
-                 
-                 
                  </label>
                  <input type="text" 
                  ref = {userRef}
@@ -106,35 +124,67 @@ function RegisterPage () {
                  </p>
               </div>
               <div className="form-group">
-                 <label htmlFor="password">Password</label>
+                 <label htmlFor="password">Password :
+                    { password ? ( validPassword ?
+                 	          <span className="material-icons">done</span> :
+                 	          <span className="material-icons">close</span> ) :(<p className="offscreen"></p>)
+                 }
+                 </label>
                  <input type="password" 
                  className="form-control" 
                  id="password" 
                  placeholder="Password"
-                 value = {password}
                  required
+                 aria-invalid = {validPassword ? "true" : "false"}
+                 aria-describedby = "passwordnote"
                  onChange = {(e) => setPassword(e.target.value)}
+                 onFocus = {() => setPasswordFocus(true)}
+                 onBlur = {() => setPasswordFocus(false)}
                  />
+                 <p id="passwordnote" className={passwordFocus && !validPassword ? "instructions" : "offscreen"}>
+                 8 to 24 characters.<br/>
+                 must include uppercase and lowercase letters, a number and a special character.<br/>
+                 allowed special characters : <span aria-label="exclamation mark">!</span>
+                 <span aria-label="at symbol">@</span><span aria-label="hashtag">#</span>
+                 <span aria-label="dollar sign">$</span><span aria-label="percent">%</span>
+                 </p>
               </div>
               <div className="form-group">
-                 <label htmlFor="confirmpassword">Password</label>
+                 <label htmlFor="confirmpassword">Confirm Password :
+                 {confirmPassword ? (validMatch ? 
+                 	<span className="material-icons">done</span>
+                 	: <span className="material-icons">close</span>) :(<p className="offscreen"></p>) }
+
+                 </label>
                  <input type="password" 
                  className="form-control" 
                  id="confirmpassword" 
                  placeholder="Confirm your Password"
-                 value = {confirmPassword}
+                 aria-invalid = {validMatch ? 'true' :'false'}
+                 aria-describedby = "matchnote"
                  required
                  onChange = {(e) => setConfirmPassword(e.target.value)}
+                 onFocus = {() => setMatchFocus(true)}
+                 onBlur = {() => setMatchFocus(false)}
                  />
+                 <p id="matchnote" className= {confirmPassword && !validMatch ? "instructions" : "offscreen" }>
+                 Must match the first password input field</p>
               </div>
               <div className="buttons-section">
-                 <button className ="btn btn-outline-success register-button">Register</button>
+                 <button className ="btn btn-outline-success register-button" 
+                 disabled = {!validUserName || !validPassword || !validMatch ? true : false } >Sign up</button>
               </div>
            </form>
-
-
+           <p>
+              Already registred ?<br/>
+              <span className="line">
+                 <Link to='/login'>Sign In</Link>
+              </span>
+           </p>
 		</section>
-		)
+		)}
+        </>
+    )
 
 
 

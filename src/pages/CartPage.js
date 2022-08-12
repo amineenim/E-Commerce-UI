@@ -69,7 +69,7 @@ function CartPage(){
 		 	<p className="total-cart">Total for the Cart : {TotalPrice} $</p>
 		 	</div>
 		) 
-		 	: (<p className="empty-cart-text">Your Cart is empty ,Go shopping !</p>)
+		 	: (<p className="empty-cart">Your Cart is empty ,Go shopping !</p>)
 		)
 }
 export default CartPage

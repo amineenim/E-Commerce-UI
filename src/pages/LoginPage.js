@@ -3,12 +3,19 @@ import { Link } from 'react-router-dom'
 //here will be the login page wich will be accessible via 
 //the '/login' route 
 //this page should display a form that allows users to authenricate
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_].{3,23}$/
 
 function LoginPage() {
 
-	//two local state variables that keep track of the user input 
+	//two local state variables that keep track of the username input and whether it's valid
 	const [userName,setUserName] = useState('')
+  const [validUserName,setValidUserName] = useState(false)
+
+  //two local state variables that keep track of the password input and whether it's valid
 	const [password,setPassword] = useState('')
+  const [validPassword,setValidPassword] = useState(false)
+
+  //a state variable that conatins error messages if there are any
 	const [errorMsg,setErrorMsg] = useState('')
 
 	const userRef = useRef()
@@ -24,6 +31,11 @@ function LoginPage() {
 		setErrorMsg('')
 	},[userName,password])
 
+  useEffect(() => {
+    const result = USER_REGEX.test(userName)
+    setValidUserName(result)
+  },[userName])
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		console.log(userName,password)
@@ -38,20 +50,31 @@ function LoginPage() {
 		   <p ref={errRef} className={errorMsg ? "errormsg" : "offscreen"} aria-live="assertive"> {errorMsg} </p>
 		   <form onSubmit ={handleSubmit} >
               <div className="form-group">
-                 <label htmlFor="username">Username</label>
+                 <label htmlFor="username">Username :
+                 {userName ? (
+                  validUserName ? (<span className="material-icons">done</span>) : 
+                  <span className="material-icons">close</span>)
+                  :(<p className= "offscreen"></p>)}
+                 </label>
                  <input type="text" 
                  ref = {userRef}
                  className="form-control" 
                  id="username"  
                  placeholder="Enter username"
-                 value = {userName}
+                 aria-describedby = "usernote"
+                 aria-invalid = {validUserName ? "false" : "true"}
                  required
                  autoComplete = "off"
                  onChange = {(e) => setUserName(e.target.value)}
                  />
+                 <p id="usernote" className={ userName && !validUserName ? "instructions" : "offscreen"} >
+                 Must contain at least 5 characters.<br/>
+                 upercase,lowercase letters,and numbers are allowed.<br/>
+                 symbols, dashs and hyphens are allowed
+                 </p>
               </div>
               <div className="form-group">
-                 <label htmlFor="password">Password</label>
+                 <label htmlFor="password">Password :</label>
                  <input type="password" 
                  className="form-control" 
                  id="password" 
